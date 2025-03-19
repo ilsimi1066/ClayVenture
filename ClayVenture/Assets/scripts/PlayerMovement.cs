@@ -10,21 +10,27 @@ public class PlayerMovement : MonoBehaviour
     bool isFacingLeft = false;
     float jumpPower = 5f;
     bool isGrounded = false;
+    IEnumerator dashCoroutine;
+    bool isDashing;
+    bool canDash = true;
+    float direction = 1;
 
     Rigidbody2D rb;
-    Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
+        if (horizontalInput != 0)
+        {
+            direction = horizontalInput;
+        }
+            horizontalInput = Input.GetAxis("Horizontal");
 
         FlipSprite();
 
@@ -32,14 +38,25 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
             isGrounded = false;
-            animator.SetBool("isJumping", !isGrounded);
+        }
+        if (Input.GetKeyDown(KeyCode.Q) && canDash == true)
+        {
+            if (dashCoroutine != null)
+            {
+                StopCoroutine(dashCoroutine);
+            }
+            dashCoroutine = Dash(.1f, 5);
+            StartCoroutine(dashCoroutine);
         }
     }
+
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
-        animator.SetFloat("xVelocity", Math.Abs(rb.velocity.x));
-        animator.SetFloat("yVelocity", rb.velocity.y);
+        if (isDashing)
+        {
+            rb.AddForce(new Vector2(direction * 10,0), ForceMode2D.Impulse);
+        }
     }
 
     void FlipSprite()
@@ -56,6 +73,16 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         isGrounded = true;
-        animator.SetBool("isJumping", !isGrounded);
+    }
+
+    IEnumerator Dash(float dashDuration, float dashCooldown)
+    {
+        isDashing = true;
+        canDash = false;
+        yield return new WaitForSeconds(dashDuration);
+        isDashing = false;
+        rb.velocity = Vector2.zero;
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
     }
 }
