@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     float horizontalInput;
     float moveSpeed = 5f;
     bool isFacingLeft = false;
-    float jumpPower = 4f;
+    float jumpPower = 5f;
     bool isGrounded = false;
 
     Rigidbody2D rb;
@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
         FlipSprite();
 
-        if (Input.GetButtonDown("Jump") && !isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
             isGrounded = false;
