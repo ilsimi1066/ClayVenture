@@ -6,9 +6,9 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     float horizontalInput;
-    float moveSpeed = 5f;
+    float moveSpeed = 10f;
     bool isFacingLeft = false;
-    float jumpPower = 5f;
+    float jumpPower = 10f;
     bool isGrounded = false;
     IEnumerator dashCoroutine;
     bool isDashing;
