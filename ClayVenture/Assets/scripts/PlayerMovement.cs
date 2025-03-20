@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 StopCoroutine(dashCoroutine);
             }
-            dashCoroutine = Dash(.5f, 1);
+            dashCoroutine = Dash(.2f, 1);
             StartCoroutine(dashCoroutine);
         }
     }
