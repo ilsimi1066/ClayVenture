@@ -14,13 +14,17 @@ public class PlayerMovement : MonoBehaviour
     bool isDashing;
     bool canDash = true;
     float direction = 1;
+    float normalGravity;
 
     Rigidbody2D rb;
+    Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        normalGravity = rb.gravityScale;
     }
 
     // Update is called once per frame
@@ -38,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
             isGrounded = false;
+            animator.SetBool("isJumping", !isGrounded);
         }
         if (Input.GetKeyDown(KeyCode.Q) && canDash == true)
         {
@@ -45,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 StopCoroutine(dashCoroutine);
             }
-            dashCoroutine = Dash(.1f, 5);
+            dashCoroutine = Dash(.5f, 1);
             StartCoroutine(dashCoroutine);
         }
     }
@@ -53,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
+        animator.SetFloat("xVelocity", Math.Abs(rb.velocity.x));
+        animator.SetFloat("yVelocity", rb.velocity.y);
         if (isDashing)
         {
             rb.AddForce(new Vector2(direction * 10,0), ForceMode2D.Impulse);
@@ -73,15 +80,28 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         isGrounded = true;
+        animator.SetBool("isJumping", !isGrounded);
     }
 
     IEnumerator Dash(float dashDuration, float dashCooldown)
     {
         isDashing = true;
         canDash = false;
+        rb.gravityScale = 0;
+        rb.velocity = new Vector2(direction * 25, 0); // Dash con velocità alta
+
+        // Attiva l'animazione del Dash, ignorando temporaneamente il Blend Tree
+        animator.SetBool("isDashing", true);
+
         yield return new WaitForSeconds(dashDuration);
+
         isDashing = false;
+        rb.gravityScale = normalGravity;
         rb.velocity = Vector2.zero;
+
+        // Disattiva il Dash e riattiva il Blend Tree
+        animator.SetBool("isDashing", false);
+
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
