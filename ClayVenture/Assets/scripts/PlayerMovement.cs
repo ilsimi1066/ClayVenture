@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     float jumpPower = 10f;
     bool isGrounded = false;
     IEnumerator dashCoroutine;
-    bool isDashing;
+     public bool isDashing;
     bool canDash = true;
     float direction = 1;
     float normalGravity;

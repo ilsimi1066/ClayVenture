@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    [SerializeField] PlayerMovement playerMovement;
     Vector2 checkpointPos;
     SpriteRenderer spriteRenderer;
 
@@ -22,7 +23,14 @@ public class GameController : MonoBehaviour
     {
        if(collision.CompareTag("Obstacle"))
         {
-            Die();
+            if (playerMovement.isDashing)
+            {
+                Debug.Log("Coccodrillo morto");
+            }
+            else
+            {
+                Die();
+            }
         }
     }
     public void UpdateCheckpoint(Vector2 pos)
@@ -41,5 +49,6 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         transform.position = checkpointPos;
         spriteRenderer.enabled = true;
+        //spriteRenderer.sortingOrder = 2;
     }
 }
