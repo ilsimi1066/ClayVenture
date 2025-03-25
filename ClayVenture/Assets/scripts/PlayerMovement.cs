@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = false;
             animator.SetBool("isJumping", !isGrounded);
         }
-        if (Input.GetKeyDown(KeyCode.Q) && canDash == true)
+        if (Input.GetKeyDown(KeyCode.Q) && canDash && isGrounded == true)
         {
             if (dashCoroutine != null)
             {
@@ -63,6 +63,18 @@ public class PlayerMovement : MonoBehaviour
         if (isDashing)
         {
             rb.AddForce(new Vector2(direction * 10,0), ForceMode2D.Impulse);
+        }
+        if (rb.velocity.y < 0) // Se il giocatore sta scendendo
+        {
+            rb.gravityScale = normalGravity * 2f; // Aumenta la gravità
+        }
+        else if (rb.velocity.y > 0 && !Input.GetButton("Jump")) // Se sta salendo ma non tiene premuto il tasto
+        {
+            rb.gravityScale = normalGravity * 1.5f; // Leggermente aumentata per farlo scendere più velocemente
+        }
+        else
+        {
+            rb.gravityScale = normalGravity; // Reset della gravità normale
         }
     }
 
