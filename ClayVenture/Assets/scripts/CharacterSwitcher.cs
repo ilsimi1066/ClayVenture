@@ -38,7 +38,7 @@ public class CharacterSwitcher : MonoBehaviour
             StartCoroutine(ResetCollider(newCollider));
         }
     }
-     private IEnumerator ResetCollider(Collider2D col)
+    private IEnumerator ResetCollider(Collider2D col)
     {
         col.enabled = false;
         yield return new WaitForSeconds(0.2f); // Aspetta un po' prima di riattivarlo
