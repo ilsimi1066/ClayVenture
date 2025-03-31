@@ -6,9 +6,9 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     float horizontalInput;
-    float moveSpeed = 10f;
+    float moveSpeed = 5f;
     bool isFacingLeft = false;
-    float jumpPower = 10f;
+    float jumpPower = 6f;
     bool isGrounded = false;
     float direction = 1;
     float normalGravity;

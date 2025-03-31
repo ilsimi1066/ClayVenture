@@ -2,13 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Portal : MonoBehaviour
+public class PortalDash : MonoBehaviour
 {
     public HashSet<GameObject> portalObjects = new HashSet<GameObject>();
     [SerializeField] private Transform destination;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Controlla se l'oggetto che entra è un giocatore con lo script Slime
+        Slime player = collision.GetComponent<Slime>();
+
+        if (player == null || !player.isDashing)
+        {
+            return; // Esce se il giocatore non sta dashando
+        }
+
         if (portalObjects.Contains(collision.gameObject))
         {
             return;

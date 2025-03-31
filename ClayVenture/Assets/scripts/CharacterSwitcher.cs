@@ -21,8 +21,11 @@ public class CharacterSwitcher : MonoBehaviour
         // Attiva il nuovo personaggio
         playerNew.SetActive(true);
 
-        Vector3 asd = new Vector3(0, 1);
+        Vector3 Change = new Vector3(0, 1);
 
-        playerNew.transform.position = playerOld.transform.position + asd;
+        playerNew.transform.position = playerOld.transform.position + Change;
+
+        // Aggiorna il target della camera
+        Camera.main.GetComponent<CameraFollow>().target = playerNew.transform;
     }
 }
