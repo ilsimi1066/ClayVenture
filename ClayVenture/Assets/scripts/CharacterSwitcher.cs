@@ -25,7 +25,7 @@ public class CharacterSwitcher : MonoBehaviour
         // Attiva il nuovo personaggio
         playerNew.SetActive(true);
 
-        Vector3 Change = new Vector3(0, 1.5f);  // Aumenta la distanza verticale
+        Vector3 Change = new Vector3(0, 1f);  // Aumenta la distanza verticale
         playerNew.transform.position = playerOld.transform.position + Change;
 
 
