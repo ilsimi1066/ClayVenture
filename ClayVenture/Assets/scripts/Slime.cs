@@ -6,13 +6,13 @@ using UnityEngine;
 public class Slime : MonoBehaviour
 {
     private float horizontal;
-    private float speed = 2f;
+    private float speed = 3f;
     private bool isFacingRight = true;
 
     private bool canDash = true;
     public bool isDashing;
-    private float dashingPower =5f;
-    private float dashingTime = 0.2f;
+    private float dashingPower =6f;
+    private float dashingTime = 0.3f;
     private float dashingCooldown = 1f;
 
     [SerializeField] private Rigidbody2D rb;
