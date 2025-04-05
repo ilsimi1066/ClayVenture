@@ -6,7 +6,12 @@ public class CharacterSwitcher : MonoBehaviour
     public GameObject playerOld;  // Il personaggio attuale
     public GameObject playerNew;  // Il nuovo personaggio
     private bool hasSwitched = false;
+    private GameController gameController;
 
+    void Start()
+    {
+        gameController = FindObjectOfType<GameController>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -28,6 +33,11 @@ public class CharacterSwitcher : MonoBehaviour
         Vector3 Change = new Vector3(0, 1f);  // Aumenta la distanza verticale
         playerNew.transform.position = playerOld.transform.position + Change;
 
+        PlayerMovement playerMovement = playerNew.GetComponent<PlayerMovement>();
+        if (playerMovement != null)
+        {
+            gameController.currentstate = playerMovement.Getplayerstate();
+        }
 
         // Aggiorna il target della camera
         Camera.main.GetComponent<CameraFollow>().target = playerNew.transform;

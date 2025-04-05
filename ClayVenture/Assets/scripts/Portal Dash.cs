@@ -10,7 +10,7 @@ public class PortalDash : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Controlla se l'oggetto che entra è un giocatore con lo script Slime
-        Slime player = collision.GetComponent<Slime>();
+        PlayerMovement player = collision.gameObject.GetComponent<PlayerMovement>();
 
         if (player == null || !player.isDashing)
         {
