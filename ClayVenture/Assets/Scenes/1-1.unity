@@ -1166,7 +1166,6 @@ GameObject:
   - component: {fileID: 218108765}
   - component: {fileID: 218108764}
   - component: {fileID: 218108763}
-  - component: {fileID: 218108768}
   - component: {fileID: 218108762}
   - component: {fileID: 218108761}
   - component: {fileID: 218108767}
@@ -1388,21 +1387,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &218108768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 218108760}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e07cbd6aabaf6b4fb808f1707206ee3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startPoint: {fileID: 0}
-  players: []
-  currentstate: 0
 --- !u!1 &220174291
 GameObject:
   m_ObjectHideFlags: 0
@@ -1584,6 +1568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f1f445eb664ab842be938c4a8f04589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameController: {fileID: 0}
   respawnPoint: {fileID: 0}
 --- !u!1 &222125627
 GameObject:
@@ -6400,9 +6385,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1090820901}
   - component: {fileID: 1090820900}
-  - component: {fileID: 1090820907}
   - component: {fileID: 1090820904}
-  - component: {fileID: 1090820906}
   - component: {fileID: 1090820903}
   - component: {fileID: 1090820908}
   - component: {fileID: 1090820905}
@@ -6573,36 +6556,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1090820906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1090820899}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c775379340df884387f64e8b8e1aa98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDashing: 0
-  rb: {fileID: 1090820904}
-  animator: {fileID: 1090820905}
---- !u!114 &1090820907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1090820899}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e07cbd6aabaf6b4fb808f1707206ee3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startPoint: {fileID: 0}
-  players: []
-  currentstate: 0
 --- !u!114 &1090820908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7300,6 +7253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f1f445eb664ab842be938c4a8f04589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameController: {fileID: 0}
   respawnPoint: {fileID: 1140323553}
 --- !u!1 &1147187935
 GameObject:
@@ -10404,7 +10358,6 @@ GameObject:
   - component: {fileID: 1527978506}
   - component: {fileID: 1527978509}
   - component: {fileID: 1527978508}
-  - component: {fileID: 1527978513}
   - component: {fileID: 1527978507}
   - component: {fileID: 1527978510}
   - component: {fileID: 1527978511}
@@ -10627,21 +10580,6 @@ CapsuleCollider2D:
   m_Offset: {x: -0.04903585, y: -0.9788499}
   m_Size: {x: 0.96787953, y: 0.2104359}
   m_Direction: 1
---- !u!114 &1527978513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1527978505}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e07cbd6aabaf6b4fb808f1707206ee3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startPoint: {fileID: 0}
-  players: []
-  currentstate: 0
 --- !u!1 &1537382206
 GameObject:
   m_ObjectHideFlags: 0
@@ -13171,7 +13109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e07cbd6aabaf6b4fb808f1707206ee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPoint: {fileID: 0}
+  startPoint: {x: 0, y: 0, z: 0}
   players:
   - {fileID: 1090820899}
   - {fileID: 1527978505}
@@ -14007,10 +13945,10 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 635278573}
+  - {fileID: 2012931253}
   - {fileID: 1761518963}
   - {fileID: 1090820901}
   - {fileID: 1527978506}
-  - {fileID: 2012931253}
   - {fileID: 218108766}
   - {fileID: 1864625409}
   - {fileID: 1019418139}

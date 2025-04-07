@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -78,15 +76,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (rb.velocity.y < 0) // Se il giocatore sta scendendo
         {
-            rb.gravityScale = normalGravity * 2f; // Aumenta la gravità
+            rb.gravityScale = normalGravity * 2f; // Aumenta la gravitï¿½
         }
         else if (rb.velocity.y > 0 && !Input.GetButton("Jump")) // Se sta salendo ma non tiene premuto il tasto
         {
-            rb.gravityScale = normalGravity * 1.5f; // Leggermente aumentata per farlo scendere più velocemente
+            rb.gravityScale = normalGravity * 1.5f; // Leggermente aumentata per farlo scendere piï¿½ velocemente
         }
         else
         {
-            rb.gravityScale = normalGravity; // Reset della gravità normale
+            rb.gravityScale = normalGravity; // Reset della gravitï¿½ normale
         }
     }
 

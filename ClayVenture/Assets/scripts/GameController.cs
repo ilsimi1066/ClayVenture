@@ -8,14 +8,14 @@ enum playerstate
 
 public class GameController : MonoBehaviour
 {
-    public Transform startPoint; // Riferimento all'Empty Object
-    Vector2 startPos;
+    [SerializeField] Vector3 startPoint; // Riferimento all'Empty Object
+    // Vector2 startPos;
     [SerializeField] GameObject[] players;
     public int currentstate = 0;
     
     private void Start()
     {
-        startPos = transform.position;
+        startPoint = transform.position;
     }
 
     //private void OnTriggerEnter2D(Collider2D collision)
@@ -26,9 +26,10 @@ public class GameController : MonoBehaviour
     //    }
     //}
 
-    public void UpdateCheckpoint(Vector2 pos)
+    public void UpdateCheckpoint(Vector3 pos)
     {
-        startPos = pos;
+        this.startPoint = pos;
+        Debug.Log("Checkpoint updated to: " + startPoint);
     }
 
     public void Die()
@@ -43,7 +44,7 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         for (int i = 0; i < players.Length; i++)
         {
-            players[i].transform.position = startPos;
+            players[i].transform.position = startPoint;
         }
         spriterenderer.enabled = true;
 
