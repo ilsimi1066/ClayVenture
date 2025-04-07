@@ -15,9 +15,10 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(collision.gameObject.tag);
         if (collision.CompareTag("Player"))
         {
-            gameController.UpdateCheckpoint(respawnPoint.position);
+            gameController.UpdateCheckpoint(new Vector2(respawnPoint.position.x, respawnPoint.position.y));
         }
     }
 }

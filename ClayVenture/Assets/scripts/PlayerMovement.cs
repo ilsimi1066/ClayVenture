@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     float horizontalInput;
-    float moveSpeed = 5f;
+  public float moveSpeed = 5f;
     bool isFacingLeft = false;
     float jumpPower = 6f;
     bool isGrounded = false;
@@ -41,6 +42,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (horizontalInput != 0)
         {
+            direction = horizontalInput;
+        }
+        horizontalInput = Input.GetAxis("Horizontal");
+        if (horizontalInput == 0)
+        {
+            moveSpeed = 3;
             direction = horizontalInput;
         }
         horizontalInput = Input.GetAxis("Horizontal");
