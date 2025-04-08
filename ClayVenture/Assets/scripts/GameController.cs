@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
     //    }
     //}
 
+
     public void UpdateCheckpoint(Vector3 pos)
     {
         this.startPoint = pos;
