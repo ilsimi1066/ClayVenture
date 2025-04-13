@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     float horizontalInput;
-    public float moveSpeed = 6f;
+    public float moveSpeed = 5f;
     bool isFacingLeft = false;
     float jumpPower = 6f;
     bool isGrounded = false;
@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (playerstate == playerstate.Mud)
         {
-            moveSpeed = 6f;
+            moveSpeed = 5f;
         }
     }
 
@@ -172,10 +172,17 @@ public class PlayerMovement : MonoBehaviour
             if (targetMovement != null)
             {
                 if (targetState == playerstate.Slime)
+                {
                     targetMovement.moveSpeed = 3f;
+                    targetMovement.canDash = true;
+                    targetMovement.isDashing = false;
+                }
                 else if (targetState == playerstate.Mud)
-                    targetMovement.moveSpeed = 6f;
+                {
+                    targetMovement.moveSpeed = 5f;
+                }
             }
+
         }
     }
 }
