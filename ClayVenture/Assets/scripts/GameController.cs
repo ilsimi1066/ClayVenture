@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] Vector3 startPoint; // Riferimento all'Empty Object
     // Vector2 startPos;
-    [SerializeField] GameObject[] players;
+    public GameObject[] players;
     public int currentstate = 0;
     
     private void Start()
@@ -49,5 +49,12 @@ public class GameController : MonoBehaviour
         }
         spriterenderer.enabled = true;
 
+    }
+    public GameObject GetPlayerByIndex(int index)
+    {
+        if (index >= 0 && index < players.Length)
+            return players[index];
+        else
+            return null;
     }
 }

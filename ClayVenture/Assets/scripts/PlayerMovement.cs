@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     float horizontalInput;
-  public float moveSpeed = 6f;
+    public float moveSpeed = 6f;
     bool isFacingLeft = false;
     float jumpPower = 6f;
     bool isGrounded = false;
@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameController gameController;
     public int Getplayerstate()
     {
-        return (int) playerstate;
+        return (int)playerstate;
     }
 
     private bool canDash = true;
@@ -33,6 +33,16 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         normalGravity = rb.gravityScale;
+
+        // Imposta la velocità iniziale in base allo stato
+        if (playerstate == playerstate.Slime)
+        {
+            moveSpeed = 3f;
+        }
+        else if (playerstate == playerstate.Mud)
+        {
+            moveSpeed = 6f;
+        }
     }
 
     // Update is called once per frame
@@ -43,22 +53,31 @@ public class PlayerMovement : MonoBehaviour
             direction = horizontalInput;
         }
         horizontalInput = Input.GetAxis("Horizontal");
-        if (horizontalInput == 0)
+
+        // Premi Z per passare da Mud a Slime e viceversa
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            moveSpeed = 3;
-            direction = horizontalInput;
+            if (playerstate == playerstate.Mud)
+            {
+                SwitchTo(playerstate.Slime);
+            }
+            else if (playerstate == playerstate.Slime)
+            {
+                SwitchTo(playerstate.Mud);
+            }
         }
-        horizontalInput = Input.GetAxis("Horizontal");
 
         FlipSprite();
 
-        if (Input.GetButtonDown("Jump") && isGrounded && playerstate!=0)
+        if (Input.GetButtonDown("Jump") && isGrounded && playerstate != 0)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
             isGrounded = false;
             animator.SetBool("isJumping", !isGrounded);
         }
-        if (Input.GetKeyDown(KeyCode.Q) && canDash && playerstate ==0)
+
+        // Solo Slime può fare il dash
+        if (Input.GetKeyDown(KeyCode.Q) && canDash && playerstate == playerstate.Slime)
         {
             StartCoroutine(Dash());
         }
@@ -128,5 +147,35 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
+    }
+    void SwitchTo(playerstate targetState)
+    {
+        GameController gc = FindObjectOfType<GameController>();
+        GameObject target = gc.GetPlayerByIndex((int)targetState);
+
+        if (target != null)
+        {
+            if (playerstate == playerstate.Slime)
+            {
+                isDashing = false;
+            }
+
+            target.transform.position = transform.position;
+            target.SetActive(true);
+            this.gameObject.SetActive(false);
+
+            Camera.main.GetComponent<CameraFollow>().target = target.transform;
+            gc.currentstate = (int)targetState;
+
+            // 👇 Imposta la velocità direttamente nel nuovo player attivo
+            PlayerMovement targetMovement = target.GetComponent<PlayerMovement>();
+            if (targetMovement != null)
+            {
+                if (targetState == playerstate.Slime)
+                    targetMovement.moveSpeed = 3f;
+                else if (targetState == playerstate.Mud)
+                    targetMovement.moveSpeed = 6f;
+            }
+        }
     }
 }
