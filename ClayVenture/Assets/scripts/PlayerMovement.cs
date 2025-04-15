@@ -26,6 +26,12 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody2D rb;
     Animator animator;
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -59,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (playerstate == playerstate.Mud)
             {
+                audioManager.PlaySFX(audioManager.mud);
                 SwitchTo(playerstate.Slime);
             }
             else if (playerstate == playerstate.Slime)
@@ -84,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {
+        {
         if (isDashing)
         {
             return;
@@ -125,6 +132,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (collision.CompareTag("Obstacle"))
         {
+            audioManager.PlaySFX(audioManager.death);
             gameController.Die();
         }
     }

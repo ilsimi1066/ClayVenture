@@ -8,6 +8,7 @@ public class CharacterSwitcher : MonoBehaviour
     private bool hasSwitched = false;
     private GameController gameController;
 
+
     void Start()
     {
         gameController = FindObjectOfType<GameController>();
